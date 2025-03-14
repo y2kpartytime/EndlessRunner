@@ -17,6 +17,7 @@ material = SubResource("StandardMaterial3D_hlea6")
 [node name="Node3D" type="Node3D"]
 
 [node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_hlea6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
