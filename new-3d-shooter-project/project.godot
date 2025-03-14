@@ -1,0 +1,51 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="New 3D shooter project"
+run/main_scene="uid://bcok0ag2w813e"
+config/features=PackedStringArray("4.4", "Forward Plus")
+config/icon="res://icon.svg"
+
+[input]
+
+Left={
+"deadzone": 0.2,
+"events": []
+}
+Right={
+"deadzone": 0.2,
+"events": []
+}
+Back={
+"deadzone": 0.2,
+"events": []
+}
+Forward={
+"deadzone": 0.2,
+"events": []
+}
+Jump={
+"deadzone": 0.2,
+"events": []
+}
+Interact={
+"deadzone": 0.2,
+"events": []
+}
+Sprint={
+"deadzone": 0.2,
+"events": []
+}
+Crouch={
+"deadzone": 0.2,
+"events": []
+}
