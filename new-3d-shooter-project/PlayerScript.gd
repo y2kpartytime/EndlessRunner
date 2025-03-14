@@ -52,7 +52,8 @@ func _physics_process(delta: float) -> void:
 			global_translate(- global_transform.basis.y * speed * upanddown * mult * delta)
 
 	move_and_slide()
-	velocity.z = speed
+	
+	# velocity.z = speed //Turns into endless runner game//
 	
 	
 	if is_on_floor() and Input.is_action_just_pressed("ui_select"):

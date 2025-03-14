@@ -1,6 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bcok0ag2w813e"]
+[gd_scene load_steps=9 format=3 uid="uid://bcok0ag2w813e"]
 
 [ext_resource type="Script" uid="uid://cf06chfetl16s" path="res://PlayerScript.gd" id="1_hlea6"]
+[ext_resource type="Script" uid="uid://dvl0i7oxblrvb" path="res://PlatformSpawnerScript.gd" id="2_jmexq"]
+[ext_resource type="PackedScene" uid="uid://7jmnldodlmka" path="res://Platform1.tscn" id="3_6lr1v"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1mmh3"]
 
@@ -37,3 +39,11 @@ shape = SubResource("BoxShape3D_1mmh3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground/CollisionShape3D"]
 mesh = SubResource("BoxMesh_hlea6")
+
+[node name="PlatformSpawner" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1957, 1.70332, 0)
+script = ExtResource("2_jmexq")
+platform_scene = ExtResource("3_6lr1v")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.731687, 0.516876, 0.44438, 0, -0.651926, 0.758282, 0.681641, -0.554825, -0.477006, 41.7567, 5.16118, -6.72447)
