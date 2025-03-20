@@ -27,8 +27,8 @@ func _ready():
 	pass 
 
 func _physics_process(delta: float) -> void:
-	rotate(Vector3.DOWN, deg_to_rad(relative.x * deg_to_rad(rot_speed) * delta))
-	rotate(transform.basis.x,deg_to_rad(- relative.y * deg_to_rad(rot_speed) * delta))
+	# rotate(Vector3.DOWN, deg_to_rad(relative.x * deg_to_rad(rot_speed*2) * delta)) #left/right rotation
+	# rotate(transform.basis.x,deg_to_rad(- relative.y * deg_to_rad(rot_speed*2) * delta)) #Up/Down rotation
 	relative = Vector2.ZERO
 	velocity.y += gravity * delta
 	
@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
-	# velocity.z = speed //Turns into endless runner game//
+	velocity.z = speed #//Turns into endless runner game//
 	
 	
 	if is_on_floor() and Input.is_action_just_pressed("ui_select"):
