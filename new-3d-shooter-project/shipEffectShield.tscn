@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://7xht3v21xy1q"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wd6r5"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 5.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kl2bl"]
+blend_mode = 1
+cull_mode = 1
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wd6r5"]
+next_pass = SubResource("StandardMaterial3D_kl2bl")
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0, 1, 0.980392, 1)
+metallic_specular = 0.0
+roughness = 0.0
+grow = true
+grow_amount = 0.05
+
+[sub_resource type="BoxMesh" id="BoxMesh_wd6r5"]
+material = SubResource("StandardMaterial3D_wd6r5")
+size = Vector3(0.2, 0.2, 1)
+
+[node name="shipEffect" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00012207, 0.0400047)
+amount = 10
+lifetime = 0.2
+speed_scale = 5.0
+trail_lifetime = 0.1
+process_material = SubResource("ParticleProcessMaterial_wd6r5")
+draw_pass_1 = SubResource("BoxMesh_wd6r5")

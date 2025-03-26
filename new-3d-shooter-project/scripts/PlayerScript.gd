@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 		if abs(turn) > 0.1:   
 			position = position + global_transform.basis.x * speed * turn * mult * delta
 			global_translate(global_transform.basis.x * speed * turn * mult * delta)
-			tilt_amount = -turn * max_tilt_angle
+			tilt_amount = turn * max_tilt_angle
 		else:
 			tilt_amount = 0.0
 			effective_speed = tilt_return_speed

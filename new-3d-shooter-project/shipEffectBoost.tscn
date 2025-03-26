@@ -1,0 +1,78 @@
+[gd_scene load_steps=9 format=3 uid="uid://1lqe6an6uoea"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wd6r5"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.0
+emission_ring_radius = 0.2
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+gravity = Vector3(0, 0, -10)
+linear_accel_min = -1.0
+linear_accel_max = 0.999998
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kl2bl"]
+cull_mode = 1
+shading_mode = 0
+diffuse_mode = 3
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.02
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wd6r5"]
+next_pass = SubResource("StandardMaterial3D_kl2bl")
+shading_mode = 0
+diffuse_mode = 3
+specular_mode = 1
+disable_ambient_light = true
+albedo_color = Color(2.88785e-06, 0.773239, 0.757846, 1)
+grow_amount = 0.05
+
+[sub_resource type="BoxMesh" id="BoxMesh_wd6r5"]
+material = SubResource("StandardMaterial3D_wd6r5")
+size = Vector3(0.08, 0.2, 2.5)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eugag"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 0, -10)
+radial_accel_min = -2.23517e-06
+radial_accel_max = -2.23517e-06
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eugag"]
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.02
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w1gyd"]
+next_pass = SubResource("StandardMaterial3D_eugag")
+albedo_color = Color(1.73271e-06, 0.861726, 0.774081, 1)
+roughness = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_tc0k1"]
+material = SubResource("StandardMaterial3D_w1gyd")
+radius = 0.05
+height = 0.25
+radial_segments = 4
+rings = 2
+
+[node name="shipEffect" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.819824)
+amount = 20
+lifetime = 0.5
+speed_scale = 10.0
+local_coords = true
+trail_lifetime = 0.1
+process_material = SubResource("ParticleProcessMaterial_wd6r5")
+draw_pass_1 = SubResource("BoxMesh_wd6r5")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.846133, 0, 0, 0, 0.884138, 0, 0, 0, 1, 0, 0.0869751, 0.951187)
+speed_scale = 3.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_eugag")
+draw_pass_1 = SubResource("SphereMesh_tc0k1")

@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=4 uid="uid://c36i7d5h68dps"]
+[gd_scene load_steps=9 format=4 uid="uid://c36i7d5h68dps"]
 
 [ext_resource type="Script" uid="uid://cf06chfetl16s" path="res://scripts/PlayerScript.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://cux632lae6e46" path="res://fbx-glb/spaceship_BakedImage.png" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://1lqe6an6uoea" path="res://shipEffectBoost.tscn" id="3_qhqgy"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_g2els"]
 points = PackedVector3Array(-1.02183, -0.240475, 2.76429, 2.6226, -0.3106, -2.06573, -2.80736, -0.0303359, -2.69472, 0.551748, 0.914303, -1.01492, -1.65205, -0.765494, -1.43454, 0.765709, -0.577322, 2.66542, 1.4968, -0.765494, -2.48491, 0.656879, 0.599259, -2.90453, 0.971708, -0.135405, 2.76429, -0.496738, 0.914303, -0.909027, -0.0724337, -0.694552, 3.12774, -1.66932, -0.5236, -2.94559, 2.75668, -0.0303359, -2.69472, -0.601869, 0.389284, 1.71393, 1.60193, 0.17931, 0.979264, 1.7065, -0.240475, -3.11499, -0.916697, 0.704328, -2.58882, 0.131789, -0.240475, 3.60419, -1.75662, -0.240475, -3.11499, -2.91249, -0.135405, -2.48491, -0.950414, -0.510222, 2.58372, 1.60193, -0.765494, -1.43454, -2.80736, -0.0303359, -2.37967, 0.342051, 0.389284, -3.11499, 2.86181, -0.135405, -2.37967, 1.28654, -0.240475, 2.13421, 0.551748, 0.704328, -2.79995, -1.23209, -0.135405, 2.23878, -1.53693, -0.608423, -2.87725, 0.523455, 0.327702, 1.42657, -2.6763, -0.311038, -2.26161, 1.56232, -0.59925, -2.83531)
@@ -67,12 +68,6 @@ script = ExtResource("1_4flbx")
 transform = Transform3D(1, -0.000336823, -0.000150088, 0.000354315, 0.990428, 0.13803, 0.00010216, -0.13803, 0.990428, 0, 9.643, 17.5)
 fov = 60.0
 
-[node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.48342, 0.472654, 4.03019)
-
-[node name="Node3D2" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.24639, 0.74958, 4.03019)
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1.50995, 0, -8.74228e-08, 0, -1, -0.1, 1, 0.5)
 shape = SubResource("ConvexPolygonShape3D_g2els")
@@ -81,3 +76,9 @@ shape = SubResource("ConvexPolygonShape3D_g2els")
 transform = Transform3D(1, 0, -7.10543e-15, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_vockg")
 skeleton = NodePath("")
+
+[node name="shipEffect" parent="CollisionShape3D/Cube_001" instance=ExtResource("3_qhqgy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40644, -0.551, -5.42165)
+
+[node name="shipEffect2" parent="CollisionShape3D/Cube_001" instance=ExtResource("3_qhqgy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.41679, -0.551, -5.42165)

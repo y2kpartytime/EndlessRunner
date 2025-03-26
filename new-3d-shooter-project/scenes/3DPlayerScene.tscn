@@ -13,7 +13,7 @@ speed = 20.0
 tilt_speed = 5.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.99532, 0.0732711, 0.062994, 5.67331e-08, -0.651926, 0.758282, 0.0966275, -0.754734, -0.648876, -0.230473, 5.16118, -6.72447)
+transform = Transform3D(0.995321, 0.073271, 0.062994, 5.67332e-08, -0.651926, 0.758282, 0.0966275, -0.754734, -0.648876, -0.230473, 13.5931, -6.72447)
 
 [node name="PlatformSpawner" type="Node3D" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("2_jmexq")
