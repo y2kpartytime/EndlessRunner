@@ -17,6 +17,6 @@ func spawn_platform() -> void:
 func _process(delta: float) -> void:
 	for platform in get_children():
 		platform.position.z -= platform_speed * delta
-		if platform.position.z < player.position.z - 20:
+		if platform.position.z < player.position.z - 10:
 			platform.queue_free()
 			spawn_platform()

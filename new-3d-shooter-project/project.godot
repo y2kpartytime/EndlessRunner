@@ -15,6 +15,14 @@ run/main_scene="uid://bcok0ag2w813e"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://textures-pics/icon.svg"
 
+[autoload]
+
+Global="*res://scripts/Global.gd"
+
+[global_group]
+
+Player=""
+
 [input]
 
 Left={

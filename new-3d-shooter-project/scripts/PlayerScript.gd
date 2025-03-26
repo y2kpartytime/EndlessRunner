@@ -1,12 +1,12 @@
 extends CharacterBody3D
 
 @export var score = 0
+
 @export var speed:float = 10
-@export var rot_speed = 1000
-@export var can_move:bool = true
+#@export var rot_speed = 1000
+#@export var can_move:bool = true
 @export var gravity: float = -9.8
 @export var jump_force: float = 5.0
-
 
 var controlling = true
 var relative:Vector2 = Vector2.ZERO
@@ -16,7 +16,6 @@ var tilt_amount = 0.0
 @export var max_tilt_angle: float = 10.0
 @export var tilt_speed: float = 3.0
 @export var tilt_return_speed: float = 2.0
-
 var current_tilt: float = 0.0
 var target_tilt = 0.0
 
@@ -60,10 +59,6 @@ func _physics_process(delta: float) -> void:
 		side_mult = 1
 		boosting = false
 
-	current_tilt = lerp(current_tilt, tilt_amount, tilt_speed * delta)
-	ship_model.rotation.z = deg_to_rad(current_tilt)
-	ship_model.rotation.x = deg_to_rad(current_pitch)
-
 	var turn = Input.get_axis("Left", "Right")   
 	var effective_speed = tilt_speed
 	if abs(turn) > 0.1:   
@@ -74,7 +69,10 @@ func _physics_process(delta: float) -> void:
 		tilt_amount = 0.0
 		effective_speed = tilt_return_speed
 
-		
+	current_tilt = lerp(current_tilt, tilt_amount, tilt_speed * delta)
+	ship_model.rotation.z = deg_to_rad(current_tilt)
+	ship_model.rotation.x = deg_to_rad(current_pitch)
+
 		#var movef = Input.get_axis("Forward", "Back")
 		#if abs(movef) > 0:     
 			#global_translate(global_transform.basis.z * speed * movef * mult * delta)
