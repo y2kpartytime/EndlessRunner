@@ -63,8 +63,10 @@ rings = 2
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.819824)
 amount = 20
-lifetime = 0.5
 speed_scale = 10.0
+explosiveness = 0.2
+randomness = 1.0
+fixed_fps = 60
 local_coords = true
 trail_lifetime = 0.1
 process_material = SubResource("ParticleProcessMaterial_wd6r5")
