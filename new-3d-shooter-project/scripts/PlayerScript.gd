@@ -8,9 +8,18 @@ extends CharacterBody3D
 @export var jump_force: float = 10.0
 
 var controlling = true
-
 var relative:Vector2 = Vector2.ZERO
 
+@onready var ship_model = $CollisionShape3D
+var tilt_amount = 0.0
+@export var max_tilt_angle: float = 10.0
+@export var tilt_speed: float = 3.0
+@export var tilt_return_speed: float = 2.0
+
+var current_tilt: float = 0.0
+var target_tilt = 0.0
+
+# Mouse settings
 func _input(event):
 	if event is InputEventMouseMotion and controlling:
 		relative = event.relative
@@ -27,34 +36,41 @@ func _ready():
 	pass 
 
 func _physics_process(delta: float) -> void:
-	# rotate(Vector3.DOWN, deg_to_rad(relative.x * deg_to_rad(rot_speed*2) * delta)) #left/right rotation
-	# rotate(transform.basis.x,deg_to_rad(- relative.y * deg_to_rad(rot_speed*2) * delta)) #Up/Down rotation
 	relative = Vector2.ZERO
 	velocity.y += gravity * delta
-	
+	#rotate(Vector3.DOWN, deg_to_rad(relative.x * deg_to_rad(rot_speed*2) * delta)) #left/right rotation
+	#rotate(transform.basis.x,deg_to_rad(- relative.y * deg_to_rad(rot_speed*2) * delta)) #Up/Down rotation
+
 	if can_move:
-		var v = Vector3.ZERO
+		var _v = Vector3.ZERO
 		var mult = 1
 		if Input.is_key_pressed(KEY_SHIFT):
 			mult = 3
 
-		var turn = Input.get_axis("Left", "Right") - v.x    
-		if abs(turn) > 0:   
+
+		var turn = Input.get_axis("Left", "Right")   
+		var effective_speed = tilt_speed
+		if abs(turn) > 0.1:   
 			position = position + global_transform.basis.x * speed * turn * mult * delta
 			global_translate(global_transform.basis.x * speed * turn * mult * delta)
-
-		var movef = Input.get_axis("Forward", "Back")
-		if abs(movef) > 0:     
-			global_translate(global_transform.basis.z * speed * movef * mult * delta)
-
-		var upanddown = Input.get_axis("ui_up", "ui_down")
-		if abs(upanddown) > 0:     
-			global_translate(- global_transform.basis.y * speed * upanddown * mult * delta)
-
+			tilt_amount = -turn * max_tilt_angle
+		else:
+			tilt_amount = 0.0
+			effective_speed = tilt_return_speed
+			
+		current_tilt = lerp(current_tilt, tilt_amount, tilt_speed * delta)
+		ship_model.rotation.z = deg_to_rad(current_tilt)
+		
+		
+		#var movef = Input.get_axis("Forward", "Back")
+		#if abs(movef) > 0:     
+			#global_translate(global_transform.basis.z * speed * movef * mult * delta)
+		#var upanddown = Input.get_axis("ui_up", "ui_down")
+		#if abs(upanddown) > 0:     
+			#global_translate(- global_transform.basis.y * speed * upanddown * mult * delta)
+	
 	move_and_slide()
-	
 	velocity.z = speed #//Turns into endless runner game//
-	
-	
 	if is_on_floor() and Input.is_action_just_pressed("ui_select"):
 		velocity.y = jump_force
+	

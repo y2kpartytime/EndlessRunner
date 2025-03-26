@@ -9,6 +9,7 @@ func _ready() -> void:
 	spawn_platform()
 
 func spawn_platform() -> void:
+	
 	var platform = platform_scene.instantiate()
 	add_child(platform)
 	platform.position.z = player.position.z + spawn_distance
