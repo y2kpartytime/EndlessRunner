@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdgrqwyfai0iq"]
+
+[sub_resource type="GDScript" id="GDScript_jm3ts"]
+script/source = "# spawner.gd
+extends Node3D
+
+@export var obstacle_scene: PackedScene
+@export var ramp_scene: PackedScene
+@export var player: CharacterBody3D
+@export var spawn_distance = 20.0
+@export var spawn_interval = 2.0
+
+var timer: Timer
+
+func _ready():
+	timer = Timer.new()
+	add_child(timer)
+	timer.timeout.connect(_spawn_obstacle)
+	timer.start(spawn_interval)
+
+func _process(delta):
+	if player:
+		global_position = player.global_position
+		global_position.z += spawn_distance
+
+func _spawn_obstacle():
+	if !obstacle_scene or !player:
+		return
+	var obstacle = obstacle_scene.instantiate()
+	get_parent().add_child(obstacle)
+	obstacle.global_position = Vector3(global_position.x + randf_range(-10.0, 10.0), global_position.y + 3, global_position.z)
+"
+
+[node name="ObstacleSpawner" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.02542, 0)
+top_level = true
+script = SubResource("GDScript_jm3ts")
+
+[node name="SpawnPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.19254, 0)
+
+[node name="SpawnPoint3" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2.19254, 0)
+
+[node name="SpawnPoint2" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.19254, 0)
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

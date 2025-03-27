@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://djtjcyo3ajhgb"]
+
+[ext_resource type="Script" uid="uid://bqdrhrk81xn15" path="res://scripts/Obstacle.gd" id="1_bqxnk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bqxnk"]
+cull_mode = 1
+shading_mode = 0
+diffuse_mode = 3
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.03
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r5ig4"]
+next_pass = SubResource("StandardMaterial3D_bqxnk")
+diffuse_mode = 1
+albedo_color = Color(0.919281, 4.47616e-06, 1.15514e-06, 1)
+roughness = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_r5ig4"]
+material = SubResource("StandardMaterial3D_r5ig4")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r5ig4"]
+
+[node name="block_0" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_bqxnk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.43985, 0, 0, 0, 18.1596, 0, 0, 0, 1.86178, 0.00403903, 0.0459301, -0.0127282)
+mesh = SubResource("BoxMesh_r5ig4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2.47387, 0, 0, 0, 18.4128, 0, 0, 0, 1.88774, 0.00106122, -0.0142356, 0)
+shape = SubResource("BoxShape3D_r5ig4")

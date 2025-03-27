@@ -5,9 +5,12 @@ extends CharacterBody3D
 @export var speed:float = 10
 #@export var rot_speed = 1000
 #@export var can_move:bool = true
-@export var gravity: float = -9.8
-@export var jump_force: float = 5.0
+@export var gravity: float = -20.8
+@export var jump_force: float = 15.0
+@onready var camera: Camera3D = $Camera3D
 
+var normal_camera_height := 9.643
+var boost_camera_height := 10.0
 var controlling = true
 var relative:Vector2 = Vector2.ZERO
 
@@ -19,8 +22,15 @@ var tilt_amount = 0.0
 var current_tilt: float = 0.0
 var target_tilt = 0.0
 
+@export var normal_fov := 60.0
+@export var boost_fov := 80.0
+@export var fov_change_speed := 1.0
+
 var boosting = false
+var boostpad = false
 var boost_meter: float
+var boost_timer = 3
+var boost_force = 500.0
 var mult = 1
 var side_mult = 1
 
@@ -41,14 +51,27 @@ func _input(event):
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	pass 
+	camera = $Camera3D
+	camera.position.y = normal_camera_height
 
 func _physics_process(delta: float) -> void:
 	relative = Vector2.ZERO
 	velocity.y += gravity * delta
 	#rotate(Vector3.DOWN, deg_to_rad(relative.x * deg_to_rad(rot_speed*2) * delta)) #left/right rotation
 	#rotate(transform.basis.x,deg_to_rad(- relative.y * deg_to_rad(rot_speed*2) * delta)) #Up/Down rotation
-
+	var target_height = boost_camera_height if boostpad else normal_camera_height
+	camera.position.y = move_toward(camera.position.y, target_height, delta * 2.0)
+	var target_fov = boost_fov if boostpad else normal_fov
+	
+	var current_fov_speed = fov_change_speed * (1.0 if boostpad else 1.0)
+	camera.fov = lerp(camera.fov, target_fov, current_fov_speed * delta)
+	
+	if boostpad:
+		boost_timer -= delta
+		if boost_timer <= 0:
+			boostpad = false
+		else:
+			velocity -= transform.basis.z * speed * boost_force * delta
 	var _v = Vector3.ZERO
 	if Input.is_key_pressed(KEY_SHIFT):
 		mult = 2
@@ -58,7 +81,6 @@ func _physics_process(delta: float) -> void:
 		mult = 1
 		side_mult = 1
 		boosting = false
-
 	var turn = Input.get_axis("Left", "Right")   
 	var effective_speed = tilt_speed
 	if abs(turn) > 0.1:   
@@ -68,21 +90,17 @@ func _physics_process(delta: float) -> void:
 	else:
 		tilt_amount = 0.0
 		effective_speed = tilt_return_speed
-
 	current_tilt = lerp(current_tilt, tilt_amount, tilt_speed * delta)
 	ship_model.rotation.z = deg_to_rad(current_tilt)
 	ship_model.rotation.x = deg_to_rad(current_pitch)
-
 		#var movef = Input.get_axis("Forward", "Back")
 		#if abs(movef) > 0:     
 			#global_translate(global_transform.basis.z * speed * movef * mult * delta)
 		#var upanddown = Input.get_axis("ui_up", "ui_down")
 		#if abs(upanddown) > 0:     
 			#global_translate(- global_transform.basis.y * speed * upanddown * mult * delta)
-	
 	move_and_slide()
 	velocity.z = speed * mult #//Turns into endless runner game//
-	
 	if is_on_floor() and Input.is_action_just_pressed("ui_select"):
 		velocity.y = jump_force
 		current_pitch = jump_tilt_angle
@@ -93,3 +111,8 @@ func _physics_process(delta: float) -> void:
 		current_pitch = 0
 	if velocity.y > 0:  # Only while moving upward
 		current_pitch = lerp(current_pitch, jump_tilt_angle * (velocity.y/jump_force), 5.0 * delta)
+
+func apply_boost(force: float, duration: float):
+	boostpad = true
+	boost_timer = duration
+	boost_force = force
