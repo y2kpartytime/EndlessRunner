@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxao0kyibxfrb"]
+
+[ext_resource type="Shader" uid="uid://bylyvemfdlmkk" path="res://UpgradeAntiMatter.tres" id="1_fkrpl"]
+[ext_resource type="Shader" uid="uid://cxj71h5qtgu70" path="res://OutlineShader.tres" id="1_ur1tb"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ur1tb"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_6vuy1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m14sf"]
+render_priority = 0
+shader = ExtResource("1_ur1tb")
+shader_parameter/Outline_Size = 0.01
+shader_parameter/Base_Color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fkrpl"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_m14sf")
+shader = ExtResource("1_fkrpl")
+shader_parameter/Scan_Scroll_Speed = 0.0
+shader_parameter/scanline_scale = 0.0
+shader_parameter/Scanline_Color = Color(0, 0, 0, 1)
+shader_parameter/FloatParameter = 3.0
+shader_parameter/ColorParameter = Color(0, 0, 0, 1)
+
+[node name="Node3D" type="Area3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
+shape = SubResource("SphereShape3D_ur1tb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
+mesh = SubResource("SphereMesh_6vuy1")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_fkrpl")

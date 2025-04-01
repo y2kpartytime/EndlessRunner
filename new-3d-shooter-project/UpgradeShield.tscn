@@ -1,0 +1,38 @@
+[gd_scene load_steps=8 format=3 uid="uid://5ai7fe3uc1p1"]
+
+[ext_resource type="Shader" uid="uid://cjaugf805f1oe" path="res://UpgradeShield.tres" id="1_2en65"]
+[ext_resource type="Shader" uid="uid://cxj71h5qtgu70" path="res://OutlineShader.tres" id="1_vw7pq"]
+[ext_resource type="Texture2D" uid="uid://q8dac3rr5ek2" path="res://textures-pics/HologramLines.png" id="2_p7r3l"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_21801"]
+radius = 0.808713
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_il20r"]
+render_priority = 0
+shader = ExtResource("1_vw7pq")
+shader_parameter/Outline_Size = 0.05
+shader_parameter/Base_Color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p7r3l"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_il20r")
+shader = ExtResource("1_2en65")
+shader_parameter/Scan_Scroll_Speed = 5.0
+shader_parameter/scanline_scale = 1.0
+shader_parameter/Scanline_Texture = ExtResource("2_p7r3l")
+shader_parameter/Scanline_Color = Color(0.0333333, 1, 0, 1)
+shader_parameter/FloatParameter = 2.0
+shader_parameter/ColorParameter = Color(0, 1, 0.15, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_2en65"]
+material = SubResource("ShaderMaterial_p7r3l")
+
+[node name="Node3D" type="Area3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2.4, 0, 0, 0, 2.4, 0, 0, 0, 2.4, 0, 0, 0)
+shape = SubResource("SphereShape3D_21801")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(2.4, 0, 0, 0, 2.4, 0, 0, 0, 2.4, 0, 0, 0)
+mesh = SubResource("SphereMesh_2en65")

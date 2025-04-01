@@ -1,18 +1,16 @@
-[gd_scene load_steps=15 format=3 uid="uid://bcok0ag2w813e"]
+[gd_scene load_steps=13 format=3 uid="uid://bcok0ag2w813e"]
 
 [ext_resource type="PackedScene" uid="uid://c36i7d5h68dps" path="res://scenes/player.tscn" id="1_8gogc"]
 [ext_resource type="Script" uid="uid://dvl0i7oxblrvb" path="res://scripts/PlatformSpawnerScript.gd" id="2_jmexq"]
 [ext_resource type="PackedScene" uid="uid://7jmnldodlmka" path="res://scenes/Platform1.tscn" id="3_6lr1v"]
 [ext_resource type="PackedScene" uid="uid://ucvlnhonlwtb" path="res://scenes/coin_01.tscn" id="4_8gogc"]
-[ext_resource type="PackedScene" uid="uid://cloand0poseso" path="res://scenes/city.tscn" id="4_h7wmx"]
+[ext_resource type="PackedScene" uid="uid://cloand0poseso" path="res://city.tscn" id="4_h7wmx"]
 [ext_resource type="Script" uid="uid://csybvvsierqfc" path="res://scripts/UI.gd" id="5_ecxaq"]
 [ext_resource type="PackedScene" uid="uid://ckq2fmqkml0ou" path="res://scenes/boost.tscn" id="6_dsa0r"]
-[ext_resource type="PackedScene" uid="uid://cdgrqwyfai0iq" path="res://scenes/obstacle_spawner.tscn" id="7_4vyoy"]
+[ext_resource type="PackedScene" uid="uid://cdgrqwyfai0iq" path="res://obstacle_spawner.tscn" id="7_4vyoy"]
 [ext_resource type="PackedScene" uid="uid://djtjcyo3ajhgb" path="res://terrain_blocks/terrain_0.tscn" id="8_af6on"]
 [ext_resource type="Script" uid="uid://bmx2yrey3afh7" path="res://scripts/spawner_script.gd" id="9_h7wmx"]
-[ext_resource type="PackedScene" uid="uid://bqc43oblohpuy" path="res://scenes/city_spawner.tscn" id="10_4ggqg"]
-[ext_resource type="PackedScene" uid="uid://5ai7fe3uc1p1" path="res://UpgradeShield.tscn" id="12_0rkm5"]
-[ext_resource type="PackedScene" uid="uid://cxao0kyibxfrb" path="res://AntiMatter.tscn" id="13_v07fs"]
+[ext_resource type="PackedScene" uid="uid://bqc43oblohpuy" path="res://city_spawner.tscn" id="10_4ggqg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_eqadg"]
 font_size = 35
@@ -25,12 +23,10 @@ shadow_size = 5
 
 [node name="Player" parent="." instance=ExtResource("1_8gogc")]
 transform = Transform3D(-1.00287, 0, -1.51429e-07, 0, 1.00287, 0, 1.51429e-07, 0, -1.00287, 0, 1.01984, 0)
-speed = 100.0
-side_speed = 95.0
-jump_force = 10.0
+speed = 50.0
+side_speed = 2.0
 max_tilt_angle = 13.0
 tilt_speed = 5.0
-boost_fov = 76.0
 jump_tilt_angle = -30.0
 
 [node name="COINS" type="Node3D" parent="."]
@@ -157,7 +153,7 @@ transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0.0679486, 1.47882, 15.
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0.0679486, 1.47882, 21.9456)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.443853, 0.679496, 0.584191, -0.155113, -0.583826, 0.796923, 0.882572, -0.444333, -0.153734, 0, 0, 0)
+transform = Transform3D(0.443853, 0.679496, 0.584191, -0.155113, -0.583826, 0.796923, 0.882572, -0.444333, -0.153734, -0.230473, 13.5931, -6.72447)
 
 [node name="UI" type="Node" parent="."]
 script = ExtResource("5_ecxaq")
@@ -181,7 +177,8 @@ wait_time = 0.01
 
 [node name="Area3D" parent="." instance=ExtResource("6_dsa0r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.54657, 1.28546, 92.7703)
-boost_duration = 5
+boost_force = 60.0
+boost_duration = 3
 
 [node name="Area3D2" parent="." instance=ExtResource("6_dsa0r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.48623, 1.28546, 235.005)
@@ -189,25 +186,17 @@ boost_force = 60.0
 boost_duration = 3
 
 [node name="ObstacleSpawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_4vyoy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20.5425)
 top_level = true
 script = ExtResource("9_h7wmx")
 obstacle_scene = ExtResource("8_af6on")
-boost_scene = ExtResource("6_dsa0r")
 player = NodePath("../Player")
-spawn_distance = 500.0
+spawn_distance = 175.0
 spawn_interval = 0.45
-boost_spawn_interval = 3.0
 
 [node name="CitySpawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("10_4ggqg")]
 obstacle_scene = ExtResource("4_h7wmx")
 player = NodePath("../Player")
-spawn_distance = 50.0
-spawn_interval = 2.5
-
-[node name="Node3D" parent="." instance=ExtResource("12_0rkm5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5339, 3.77073, 326.943)
-
-[node name="Node3D2" parent="." instance=ExtResource("13_v07fs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.1783, 3.51937, 408.506)
+spawn_interval = 5.0
 
 [connection signal="timeout" from="PlatformSpawner/Timer" to="PlatformSpawner" method="_on_timer_timeout"]

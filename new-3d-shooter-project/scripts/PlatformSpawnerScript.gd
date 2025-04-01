@@ -6,9 +6,7 @@ extends Node3D
 @export var player: CharacterBody3D
 
 @onready var obstacle = preload("res://terrain_blocks/terrain_0.tscn")
-@onready var spawn_point = $SpawnPoint
 var obstacle_timer: Timer
-@onready var timer_2: Timer = $Timer2
 
 
 func _ready() -> void:

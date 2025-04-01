@@ -44,7 +44,7 @@ _data = {
 }
 
 [node name="coin01" instance=ExtResource("1_611v0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06463, 0)
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
 script = ExtResource("2_50hpv")
 
 [node name="Cylinder" parent="." index="0"]

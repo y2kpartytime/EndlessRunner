@@ -3,6 +3,7 @@ extends CharacterBody3D
 @export var score = 0
 
 @export var speed:float = 10
+@export var side_speed:float = 5
 #@export var rot_speed = 1000
 #@export var can_move:bool = true
 @export var gravity: float = -20.8
@@ -32,7 +33,7 @@ var boost_meter: float
 var boost_timer = 3
 var boost_force = 500.0
 var mult = 1
-var side_mult = 1
+var side_mult = .2
 
 @export var jump_tilt_angle: float = -20.0
 var current_pitch: float = 0.0
@@ -73,19 +74,14 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity -= transform.basis.z * speed * boost_force * delta
 	var _v = Vector3.ZERO
-	if Input.is_key_pressed(KEY_SHIFT):
-		mult = 2
-		side_mult = 1.1
-		boosting = true
-	else:
-		mult = 1
-		side_mult = 1
-		boosting = false
+
+	var mult = 2
+	var side_mult = 1.1
+
 	var turn = Input.get_axis("Left", "Right")   
 	var effective_speed = tilt_speed
 	if abs(turn) > 0.1:   
-		position = position + global_transform.basis.x * speed * turn * side_mult * delta
-		global_translate(global_transform.basis.x * speed * turn  * side_mult * delta)
+		global_translate(global_transform.basis.x * side_speed * turn * delta)
 		tilt_amount = turn * max_tilt_angle
 	else:
 		tilt_amount = 0.0
@@ -100,7 +96,7 @@ func _physics_process(delta: float) -> void:
 		#if abs(upanddown) > 0:     
 			#global_translate(- global_transform.basis.y * speed * upanddown * mult * delta)
 	move_and_slide()
-	velocity.z = speed * mult #//Turns into endless runner game//
+	velocity.z = speed * mult  #//Turns into endless runner game//
 	if is_on_floor() and Input.is_action_just_pressed("ui_select"):
 		velocity.y = jump_force
 		current_pitch = jump_tilt_angle

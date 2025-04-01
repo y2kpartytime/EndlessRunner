@@ -2,8 +2,7 @@
 
 [ext_resource type="Script" uid="uid://brul061r1a248" path="res://scripts/booster_pad.gd" id="1_hnf4g"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_o6nrr"]
-size = Vector3(1, 8.81836, 1)
+[sub_resource type="BoxShape3D" id="BoxShape3D_8xfal"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hnf4g"]
 albedo_color = Color(1, 0.65, 0, 1)
@@ -12,14 +11,17 @@ albedo_color = Color(1, 0.65, 0, 1)
 material = SubResource("StandardMaterial3D_hnf4g")
 
 [node name="Area3D" type="Area3D"]
-transform = Transform3D(2.51922, 0, 0, 0, 2.51922, 0, 0, 0, 2.51922, 0, 0, 0)
 script = ExtResource("1_hnf4g")
+boost_force = 100.0
+boost_duration = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(6.22114, 0, 0, 0, 0.567398, 0, 0, 0, 15.3673, 0, 0.0223799, 0)
-shape = SubResource("BoxShape3D_o6nrr")
+transform = Transform3D(9.05186, 0, 0, 0, 0.326874, 0, 0, 0, 26.3773, 0, 0.0223799, 0)
+shape = SubResource("BoxShape3D_8xfal")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_n25d2")
+skeleton = NodePath("")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
