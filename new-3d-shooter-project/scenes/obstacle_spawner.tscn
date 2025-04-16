@@ -6,6 +6,7 @@ script/source = "extends Node3D
 @export var obstacle_scene: PackedScene
 @export var ramp_scene: PackedScene
 @export var player: CharacterBody3D
+@export var shield: PackedScene
 @export var spawn_distance = 20.0
 @export var spawn_interval = 2.0
 var timer: Timer

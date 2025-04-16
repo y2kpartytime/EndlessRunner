@@ -3,11 +3,11 @@ extends CharacterBody3D
 @export var score = 0
 
 @export var speed:float = 10
-@export var side_speed:float = 5
+@export var side_speed:float = 6
 #@export var rot_speed = 1000
 #@export var can_move:bool = true
-@export var gravity: float = -20.8
-@export var jump_force: float = 15.0
+@export var gravity: float = -10.8
+@export var jump_force: float = 30.0
 @onready var camera: Camera3D = $Camera3D
 
 var normal_camera_height := 9.643
@@ -72,7 +72,7 @@ func _physics_process(delta: float) -> void:
 		if boost_timer <= 0:
 			boostpad = false
 		else:
-			velocity -= transform.basis.z * speed * boost_force * delta
+			velocity -= transform.basis.z * side_speed * boost_force * delta
 	var _v = Vector3.ZERO
 
 	var mult = 2

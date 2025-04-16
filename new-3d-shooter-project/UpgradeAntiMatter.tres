@@ -203,7 +203,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-626.107, 27.8707)
 flags/shadows_disabled = true
 flags/ambient_light_disabled = true
 varyings/WorldPos = "0,4"

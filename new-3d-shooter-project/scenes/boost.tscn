@@ -16,11 +16,10 @@ boost_force = 100.0
 boost_duration = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(9.05186, 0, 0, 0, 0.326874, 0, 0, 0, 26.3773, 0, 0.0223799, 0)
+transform = Transform3D(9.05186, 0, 0, 0, 1.45202, 0, 0, 0, 26.3773, 0, 0.0223799, 0)
 shape = SubResource("BoxShape3D_8xfal")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_n25d2")
 skeleton = NodePath("")
 

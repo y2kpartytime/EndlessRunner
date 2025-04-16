@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhhvpjw72iid5"]
+
+[ext_resource type="Shader" uid="uid://cxj71h5qtgu70" path="res://OutlineShader.tres" id="1_5541b"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mbty2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i1u28"]
+diffuse_mode = 3
+specular_mode = 1
+vertex_color_is_srgb = true
+albedo_color = Color(0.351102, 0.559662, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mvmvt"]
+render_priority = 0
+shader = ExtResource("1_5541b")
+shader_parameter/Outline_Size = 0.05
+shader_parameter/Base_Color = Color(0, 0, 0, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_yaq0m"]
+
+[node name="Node3D" type="Area3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.383862, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_mbty2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.52224, 0)
+material_override = SubResource("StandardMaterial3D_i1u28")
+material_overlay = SubResource("ShaderMaterial_mvmvt")
+mesh = SubResource("PrismMesh_yaq0m")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 0.521978, 0)
+material_override = SubResource("StandardMaterial3D_i1u28")
+material_overlay = SubResource("ShaderMaterial_mvmvt")
+mesh = SubResource("PrismMesh_yaq0m")

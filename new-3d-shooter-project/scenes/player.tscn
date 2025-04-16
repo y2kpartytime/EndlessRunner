@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=4 uid="uid://c36i7d5h68dps"]
+[gd_scene load_steps=11 format=4 uid="uid://c36i7d5h68dps"]
 
 [ext_resource type="Script" uid="uid://cf06chfetl16s" path="res://scripts/PlayerScript.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://cux632lae6e46" path="res://textures-pics/spaceship_BakedImage.png" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://1lqe6an6uoea" path="res://scenes/shipEffectBoost.tscn" id="3_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://7xht3v21xy1q" path="res://scenes/shipEffectShield.tscn" id="4_dqkch"]
+[ext_resource type="PackedScene" uid="uid://ddu3hxqi8u5jk" path="res://scenes/shipEffectShieldACTIVATE.tscn" id="5_qlg0r"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_g2els"]
 points = PackedVector3Array(-1.02183, -0.240475, 2.76429, 2.6226, -0.3106, -2.06573, -2.80736, -0.0303359, -2.69472, 0.551748, 0.914303, -1.01492, -1.65205, -0.765494, -1.43454, 0.765709, -0.577322, 2.66542, 1.4968, -0.765494, -2.48491, 0.656879, 0.599259, -2.90453, 0.971708, -0.135405, 2.76429, -0.496738, 0.914303, -0.909027, -0.0724337, -0.694552, 3.12774, -1.66932, -0.5236, -2.94559, 2.75668, -0.0303359, -2.69472, -0.601869, 0.389284, 1.71393, 1.60193, 0.17931, 0.979264, 1.7065, -0.240475, -3.11499, -0.916697, 0.704328, -2.58882, 0.131789, -0.240475, 3.60419, -1.75662, -0.240475, -3.11499, -2.91249, -0.135405, -2.48491, -0.950414, -0.510222, 2.58372, 1.60193, -0.765494, -1.43454, -2.80736, -0.0303359, -2.37967, 0.342051, 0.389284, -3.11499, 2.86181, -0.135405, -2.37967, 1.28654, -0.240475, 2.13421, 0.551748, 0.704328, -2.79995, -1.23209, -0.135405, 2.23878, -1.53693, -0.608423, -2.87725, 0.523455, 0.327702, 1.42657, -2.6763, -0.311038, -2.26161, 1.56232, -0.59925, -2.83531)
@@ -65,6 +66,7 @@ shadow_mesh = SubResource("ArrayMesh_2q05f")
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_4flbx")
 speed = 25.0
+side_speed = 7.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, -0.000336822, -0.000150088, 0.000351134, 0.994081, 0.108639, 0.000112608, -0.108639, 0.994081, 0, 9.06601, 19.5873)
@@ -122,4 +124,8 @@ light_indirect_energy = 5.0
 omni_range = 1.02008
 
 [node name="shipEffect-Snow" parent="CollisionShape3D" instance=ExtResource("4_dqkch")]
-transform = Transform3D(9.18274, 0, 1.7053e-13, 0, 9.18274, 0, -1.7053e-13, 0, 9.18274, 1.11759e-06, 0.241902, 12.7433)
+transform = Transform3D(9.18274, 0, 2.84217e-13, 0, 9.18274, 0, -2.84217e-13, 0, 9.18274, 1.03563e-06, 11.6585, 11.8722)
+
+[node name="shipEffectShieldACTIVATED" parent="." instance=ExtResource("5_qlg0r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.167533, 1.80679, 3.98623)
+visible = false

@@ -8,7 +8,6 @@ extends Node3D
 @onready var obstacle = preload("res://terrain_blocks/terrain_0.tscn")
 var obstacle_timer: Timer
 
-
 func _ready() -> void:
 	spawn_platform()
 
@@ -24,3 +23,4 @@ func _process(delta: float) -> void:
 			if platform.position.z < player.position.z - 125:
 				spawn_platform()
 				platform.queue_free()
+				
