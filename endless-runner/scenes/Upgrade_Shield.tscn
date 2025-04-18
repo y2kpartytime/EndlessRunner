@@ -1,11 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://5ai7fe3uc1p1"]
+[gd_scene load_steps=9 format=3 uid="uid://5ai7fe3uc1p1"]
 
 [ext_resource type="Shader" uid="uid://cjaugf805f1oe" path="res://UpgradeShield.tres" id="1_2en65"]
+[ext_resource type="Script" uid="uid://bgs4qlmfnxfel" path="res://scripts/shieldTouch.gd" id="1_mqcdd"]
 [ext_resource type="Shader" uid="uid://cxj71h5qtgu70" path="res://OutlineShader.tres" id="1_vw7pq"]
 [ext_resource type="Texture2D" uid="uid://q8dac3rr5ek2" path="res://textures-pics/HologramLines.png" id="2_p7r3l"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_21801"]
-radius = 0.808713
+radius = 2.22704
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_il20r"]
 render_priority = 0
@@ -28,6 +29,7 @@ shader_parameter/ColorParameter = Color(0, 1, 0.15, 1)
 material = SubResource("ShaderMaterial_p7r3l")
 
 [node name="Node3D" type="Area3D"]
+script = ExtResource("1_mqcdd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(2.75, 0, 0, 0, 2.75, 0, 0, 0, 2.75, 0, 0, 0)
@@ -36,3 +38,5 @@ shape = SubResource("SphereShape3D_21801")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
 transform = Transform3D(2.75, 0, 0, 0, 2.75, 0, 0, 0, 2.75, 0, 0, 0)
 mesh = SubResource("SphereMesh_2en65")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

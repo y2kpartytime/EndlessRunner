@@ -15,9 +15,9 @@ shader = ExtResource("2_b4y2y")
 shader_parameter/Scan_Scroll_Speed = 5.0
 shader_parameter/scanline_scale = 1.0
 shader_parameter/Scanline_Texture = ExtResource("3_lw0hf")
-shader_parameter/Scanline_Color = Color(3.85046e-06, 0.905024, 0.217364, 0.0666667)
+shader_parameter/Scanline_Color = Color(0.242, 0.66, 0, 0.207843)
 shader_parameter/FloatParameter = 1.0
-shader_parameter/ColorParameter = Color(0, 0.992805, 0.404685, 0.435294)
+shader_parameter/ColorParameter = Color(0.036508, 0.534572, 0.02969, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_2en65"]
 lightmap_size_hint = Vector2i(16, 8)

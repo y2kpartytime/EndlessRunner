@@ -23,4 +23,3 @@ func _process(delta: float) -> void:
 			if platform.position.z < player.position.z - 125:
 				spawn_platform()
 				platform.queue_free()
-				

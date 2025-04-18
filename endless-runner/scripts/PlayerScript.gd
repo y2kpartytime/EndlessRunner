@@ -1,6 +1,8 @@
 extends CharacterBody3D
 
 @export var score = 0
+@onready var ship_effect: Node3D = $CollisionShape3D/Cube_001/shipEffect
+@onready var ship_effect_2: Node3D = $CollisionShape3D/Cube_001/shipEffect2
 
 @export var speed:float = 10
 @export var side_speed:float = 6
@@ -9,6 +11,15 @@ extends CharacterBody3D
 @export var gravity: float = -10.8
 @export var jump_force: float = 30.0
 @onready var camera: Camera3D = $Camera3D
+@onready var shield_timer: Timer = $ShieldTimer
+
+
+@onready var ship_effect_shield_activated: Area3D = $shipEffectShieldACTIVATED
+@onready var debris: GPUParticles3D = $Effect_Explosion/GPUParticles3D
+@onready var fire: GPUParticles3D = $Effect_Explosion/GPUParticles3D2
+@onready var smoke: GPUParticles3D = $Effect_Explosion/GPUParticles3D3
+
+var shielded = false
 
 var normal_camera_height := 9.643
 var boost_camera_height := 10.0
@@ -37,6 +48,8 @@ var side_mult = .2
 
 @export var jump_tilt_angle: float = -20.0
 var current_pitch: float = 0.0
+
+var dead = false
 
 # Mouse settings
 func _input(event):
@@ -96,7 +109,12 @@ func _physics_process(delta: float) -> void:
 		#if abs(upanddown) > 0:     
 			#global_translate(- global_transform.basis.y * speed * upanddown * mult * delta)
 	move_and_slide()
-	velocity.z = speed * mult  #//Turns into endless runner game//
+	if dead == false:
+		velocity.z = speed * mult  #//Turns into endless runner game//
+	else:
+		velocity.z = 0
+
+
 	if is_on_floor() and Input.is_action_just_pressed("ui_select"):
 		velocity.y = jump_force
 		current_pitch = jump_tilt_angle
@@ -112,3 +130,31 @@ func apply_boost(force: float, duration: float):
 	boostpad = true
 	boost_timer = duration
 	boost_force = force
+
+func shield_activate():
+	var shieldDuration = 4.0
+	ship_effect_shield_activated.visible = true
+	shield_timer.start(shieldDuration)
+	shielded = true
+
+func _on_shield_timer_timeout() -> void:
+	ship_effect_shield_activated.visible = false
+	shielded = false
+
+func explode():
+	if shielded == true:
+		pass
+	else:
+		var dead = true
+		speed = 0
+		side_speed = 0
+		tilt_amount = 0
+		tilt_speed = 0
+		#Show Loss Screen and points
+		debris.emitting = true
+		fire.emitting = true
+		smoke.emitting = true
+		ship_model.visible = false
+		ship_effect_shield_activated.visible = false
+		ship_effect.visible = false
+		ship_effect_2.visible = false

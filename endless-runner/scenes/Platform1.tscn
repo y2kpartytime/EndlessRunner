@@ -5,6 +5,7 @@
 [sub_resource type="BoxMesh" id="BoxMesh_23i6h"]
 
 [node name="MeshInstance3D" type="MeshInstance3D"]
+transform = Transform3D(1.33592, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
