@@ -39,4 +39,5 @@ shape = SubResource("SphereShape3D_21801")
 transform = Transform3D(2.75, 0, 0, 0, 2.75, 0, 0, 0, 2.75, 0, 0, 0)
 mesh = SubResource("SphereMesh_2en65")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

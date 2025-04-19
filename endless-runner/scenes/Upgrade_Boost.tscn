@@ -10,7 +10,7 @@ albedo_color = Color(1, 0.65, 0, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_n25d2"]
 material = SubResource("StandardMaterial3D_hnf4g")
 
-[node name="Area3D" type="Area3D"]
+[node name="Area3D" type="Area3D" groups=["Powerup"]]
 script = ExtResource("1_hnf4g")
 boost_force = 100.0
 boost_duration = 4
@@ -23,4 +23,5 @@ shape = SubResource("BoxShape3D_8xfal")
 mesh = SubResource("BoxMesh_n25d2")
 skeleton = NodePath("")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,11 +1,20 @@
-[gd_scene load_steps=7 format=4 uid="uid://bk8jcyn0p3n41"]
+[gd_scene load_steps=8 format=4 uid="uid://bk8jcyn0p3n41"]
 
 [ext_resource type="Script" uid="uid://47hmho4uwnjf" path="res://scripts/HitObstacle.gd" id="1_0fx8w"]
 [ext_resource type="Texture2D" uid="uid://cxeqsht65tjnn" path="res://fbx-glb/icepillar1_AdobeStock_623065595.jpg" id="1_iq60o"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0fx8w"]
+cull_mode = 1
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.25
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xp7fp"]
 resource_name = "Ice"
+next_pass = SubResource("StandardMaterial3D_0fx8w")
 cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
 albedo_texture = ExtResource("1_iq60o")
 roughness = 0.0
 
@@ -46,7 +55,7 @@ shadow_mesh = SubResource("ArrayMesh_frj1e")
 [sub_resource type="BoxShape3D" id="BoxShape3D_iq60o"]
 size = Vector3(7.2372, 34.4609, 8.86811)
 
-[node name="icepillar1" type="Area3D"]
+[node name="icepillar1" type="Area3D" groups=["Obstacle"]]
 script = ExtResource("1_0fx8w")
 
 [node name="Cube" type="MeshInstance3D" parent="."]

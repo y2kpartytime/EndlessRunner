@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=3 uid="uid://bkkd4t237q82r"]
+
+[ext_resource type="Script" uid="uid://dd0hpjx0h6jae" path="res://PauseMenu.gd" id="1_yktym"]
+[ext_resource type="Theme" uid="uid://dt117em1gnqi7" path="res://ButtonThemeRestart.tres" id="2_yktym"]
+[ext_resource type="Theme" uid="uid://bv0tc4dlrkb5y" path="res://QuitButtonTheme.tres" id="3_68cqa"]
+
+[node name="Pause" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yktym")
+
+[node name="Resume" type="Button" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -363.0
+offset_top = -131.0
+offset_right = -293.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(10.4283, 7.18152)
+theme = ExtResource("2_yktym")
+text = "
+"
+
+[node name="Quit" type="Button" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 248.0
+offset_top = 190.0
+offset_right = 290.0
+offset_bottom = 221.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(7.01406, 3.07376)
+theme = ExtResource("3_68cqa")
+text = "
+"
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -73.0
+offset_top = -55.0
+offset_right = -33.0
+offset_bottom = -15.0
+scale = Vector2(33.042, 19.3586)
+
+[connection signal="pressed" from="Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

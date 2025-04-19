@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://dw4872bpdfe40"]
+
+[ext_resource type="Script" uid="uid://ch6h8iup87y7n" path="res://fbx-glb/MainMenu.gd" id="1_0d5ky"]
+[ext_resource type="Theme" uid="uid://l7s1qh3cie6x" path="res://ButtonThemeStart.tres" id="2_7htnq"]
+[ext_resource type="Theme" uid="uid://bv0tc4dlrkb5y" path="res://QuitButtonTheme.tres" id="3_3wf2c"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0d5ky")
+
+[node name="Play" type="Button" parent="."]
+layout_mode = 2
+offset_left = 732.0
+offset_top = 411.0
+offset_right = 773.0
+offset_bottom = 457.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(9.2423, 2.04476)
+theme = ExtResource("2_7htnq")
+text = "
+
+"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 2
+offset_left = 732.0
+offset_top = 516.0
+offset_right = 802.0
+offset_bottom = 617.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(5.40021, 0.920141)
+theme = ExtResource("3_3wf2c")
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

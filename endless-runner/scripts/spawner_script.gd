@@ -5,16 +5,19 @@ extends Node3D
 @export var boost_scene: PackedScene
 @export var shield: PackedScene
 @export var obstacle_scene2: PackedScene
+@export var obstacle_scene3: PackedScene
 
 @export var player: CharacterBody3D
 @export var spawn_distance = 20.0
 @export var spawn_interval = 2.0
 @export var boost_spawn_interval = 8.0
-@export var spawn_interval_pillar2 = 1.0
+@export var spawn_interval_pillar2 = 1.27
+@export var spawn_interval_pillar3 = 2.35
 
 @export var shield_spawn = 5.0
 
 var timer: Timer
+var pillar3timer: Timer
 var boost_timer: Timer
 var shield_timer: Timer
 var pillar2timer: Timer
@@ -43,6 +46,11 @@ func _ready():
 	add_child(shield_timer)
 	shield_timer.timeout.connect(_spawn_shield)
 	shield_timer.start(shield_spawn)
+#[illar3
+	pillar3timer = Timer.new()
+	add_child(pillar3timer)
+	pillar3timer.timeout.connect(_spawn_obstacle_3)
+	pillar3timer.start(spawn_interval_pillar3)
 
 func _process(delta):
 	if player:
@@ -70,18 +78,25 @@ func _spawn_boost():
 		return
 	var booster = boost_scene.instantiate()
 	get_parent().add_child(booster)
-	booster.global_position = Vector3(global_position.x + randf_range(-18.0, 18.0), global_position.y - 3, global_position.z)
+	booster.global_position = Vector3(global_position.x + randf_range(-18.0, 18.0), 0, global_position.z)
 
 func _spawn_shield():
 	if !shield or !player:
 		return
 	var shield = shield.instantiate()
 	get_parent().add_child(shield)
-	shield.global_position = Vector3(global_position.x + randf_range(-18.0, 18.0), global_position.y + 1, global_position.z)
+	shield.global_position = Vector3(global_position.x + randf_range(-18.0, 18.0), 5, global_position.z)
 
 func _spawn_obstacle_2():
-	if !obstacle_scene or !player:
+	if !obstacle_scene2 or !player:
 		return
 	var obstacle2 = obstacle_scene2.instantiate()
 	get_parent().add_child(obstacle2)
-	obstacle2.global_position = Vector3(global_position.x, global_position.y, global_position.z)
+	obstacle2.global_position = Vector3(global_position.x, -8, global_position.z)
+
+func _spawn_obstacle_3():
+	if !obstacle_scene3 or !player:
+		return
+	var obstacle3 = obstacle_scene3.instantiate()
+	get_parent().add_child(obstacle3)
+	obstacle3.global_position = Vector3(global_position.x, global_position.y -7 , global_position.z)

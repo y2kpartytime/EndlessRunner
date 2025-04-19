@@ -1,5 +1,9 @@
 extends CharacterBody3D
 
+@onready var audio_player: AudioStreamPlayer3D = $AudioStreamPlayer3D
+@export var engineSound: AudioEffect
+@onready var audio_player2: AudioStreamPlayer3D = $AudioStreamPlayer3D2
+
 @export var score = 0
 @onready var ship_effect: Node3D = $CollisionShape3D/Cube_001/shipEffect
 @onready var ship_effect_2: Node3D = $CollisionShape3D/Cube_001/shipEffect2
@@ -13,13 +17,13 @@ extends CharacterBody3D
 @onready var camera: Camera3D = $Camera3D
 @onready var shield_timer: Timer = $ShieldTimer
 
-
 @onready var ship_effect_shield_activated: Area3D = $shipEffectShieldACTIVATED
 @onready var debris: GPUParticles3D = $Effect_Explosion/GPUParticles3D
 @onready var fire: GPUParticles3D = $Effect_Explosion/GPUParticles3D2
 @onready var smoke: GPUParticles3D = $Effect_Explosion/GPUParticles3D3
 
 var shielded = false
+var paused = false
 
 var normal_camera_height := 9.643
 var boost_camera_height := 10.0
@@ -67,8 +71,10 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera = $Camera3D
 	camera.position.y = normal_camera_height
-
+	if !dead:
+		audio_player.play()
 func _physics_process(delta: float) -> void:
+	
 	relative = Vector2.ZERO
 	velocity.y += gravity * delta
 	#rotate(Vector3.DOWN, deg_to_rad(relative.x * deg_to_rad(rot_speed*2) * delta)) #left/right rotation
@@ -111,20 +117,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	if dead == false:
 		velocity.z = speed * mult  #//Turns into endless runner game//
+
 	else:
 		velocity.z = 0
-
-
-	if is_on_floor() and Input.is_action_just_pressed("ui_select"):
-		velocity.y = jump_force
-		current_pitch = jump_tilt_angle
-		
-	if not is_on_floor():
-		current_pitch = lerp(current_pitch, 0.0, tilt_return_speed * delta)
-	else:
-		current_pitch = 0
-	if velocity.y > 0:  # Only while moving upward
-		current_pitch = lerp(current_pitch, jump_tilt_angle * (velocity.y/jump_force), 5.0 * delta)
 
 func apply_boost(force: float, duration: float):
 	boostpad = true
@@ -158,3 +153,4 @@ func explode():
 		ship_effect_shield_activated.visible = false
 		ship_effect.visible = false
 		ship_effect_2.visible = false
+		audio_player2.play()

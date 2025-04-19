@@ -1,8 +1,61 @@
-[gd_scene load_steps=3 format=3 uid="uid://7jmnldodlmka"]
+[gd_scene load_steps=7 format=4 uid="uid://7jmnldodlmka"]
+
+[ext_resource type="Texture2D" uid="uid://dfadsuyfbudbx" path="res://fbx-glb/iceroad1_ice3.jpg" id="1_dgp4r"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iwg0i"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_23i6h"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dgp4r"]
+cull_mode = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xfrv8"]
+resource_name = "ice3"
+next_pass = SubResource("StandardMaterial3D_dgp4r")
+cull_mode = 2
+diffuse_mode = 1
+specular_mode = 1
+albedo_texture = ExtResource("1_dgp4r")
+metallic_specular = 0.0
+roughness = 0.0
+rim = 0.53
+rim_tint = 0.77
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_g8cd7"]
+_surfaces = [{
+"aabb": AABB(-26.2921, -10.5859, -238.421, 52.74, 11.2287, 476.842),
+"format": 34896613377,
+"index_count": 180,
+"index_data": PackedByteArray("DgACAA8AAQAPAAIAAAABAAIADgAAAAIAAAADAAEAAAAOAAgAAAAIAAMAAwAQAAEAAQAQAA8AAwAIABAACgAOAA8ADgARAAgADgAKABEACAASABAACAARABIAEAATAA8ACgAPABMAEAASABMACgAUABEAEQAJABIAEQAUAAkAEgAVABMAEgAJABUADAAKABMACgAMABQADAATABUAFAANAAkADAALABQAFAALAA0AFgAMABUADAAWAAsACQAXABUACQANABcAFgAVABcACwAYAA0AFgAZAAsACwAZABgAGgAWABcAFgAaABkADQAbABcADQAYABsAGgAXABsAGQAcABgAGgAdABkAGQAdABwAHgAaABsAGgAeAB0AGAAfABsAGAAcAB8AHgAbAB8AHQAEABwABQAeAB8AHgAHAB0AHgAFAAcAHQAHAAQABQAfAAYAHAAGAB8ABwAFAAYAHAAEAAYABwAGAAQA"),
+"lods": [0.00397695, PackedByteArray("AAABAAIAAAADAAEAAwAIAAEAAAAIAAMACAAJAAEAAQAJAAIAAAAKAAgACgAAAAIACAALAAkACgALAAgADAAKAAIACgAMAAsABQAMAAIADAAFAAsACQAGAAIABQACAAYACQANAAYACwANAAkABwAFAAYABQAHAAsADQAEAAYABwAGAAQACwAEAA0ACwAHAAQA"), 0.00918437, PackedByteArray("AAABAAIAAAADAAEAAQAEAAIAAwAEAAEABQAAAAIAAAAFAAMABAAGAAIABQACAAYABwAGAAQABwAFAAYAAwAHAAQABQAHAAMA")],
+"name": "ice3",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 32,
+"vertex_data": PackedByteArray("AAAAAAAAAAD/////AAAAAAAA//8AAAAA//8AAAAAAAD///////8AAAAAAAD//wAAAAD/////AAD//wAA//8AAP//AACSJAAA/////7ZtAAAAAAAAJEkAAP//AABIkgAAAAAAALZtAAD/////SJIAAAAAAACSJAAAAAD//5IkAAD/////kiQAAP//AAAkSQAA/////yRJAAAAAP//JEkAAP//AAC2bQAAAAD//7ZtAAAAAAAASJIAAAAA//9IkgAA/////9q2AAD//wAA2rYAAAAAAADatgAAAAD//9q2AAD/////bNsAAP//AABs2wAAAAAAAGzbAAAAAP//bNsAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_suxcq"]
+resource_name = "iceroad1_Cube_001"
+_surfaces = [{
+"aabb": AABB(-26.2921, -10.5859, -238.421, 52.74, 11.2287, 476.842),
+"attribute_data": PackedByteArray("JniBgtiHfX0meH192IeBgtiHgYImeH192Id9fSZ4gYLYhwAA2If//yZ4AAAmeP//JngAACZ4///YhwAA2If//1TVgYKqKn19VNV9faoqgYKqKoGCVNV9faoqfX1U1YGC2Ie2bdiHSJLYh5IkJngkSdiHSJImeLZt87yBgjCMfX3Oc4GCznN9fTCMgYKRpIGC87yBgvO8fX2RpH19MIx9fc5zgYLOc319bVuBgm1bfX0LQ4GCC0N9fQtDgYILQ319bVuBgm1bfX0wjIGCkaSBgpGkfX3zvH19Jnhs29iHbNsmeNq22IfattiHbNsmeGzb2IfatiZ42rYmeEiSJniSJNiHkiTYh5IkJngkSSZ4kiTYhyRJ2IckSSZ4tm0meCRJ2Ie2bSZ4SJImeLZt2IdIkiZ4kiQmeJIk2IckSdiHkiQmeCRJ2Ie2bdiHJEkmeLZt2IdIktiHtm0meEiSJnhIktiH2rYmeNq2"),
+"format": 34896613399,
+"index_count": 180,
+"index_data": PackedByteArray("JAAVACUAJAAXABUAIwAkACUAIwAlACYAIgAjACYAIgAmACcAKAAiACcAKAAnACkAKgAoACkAKgApACsALAAqACsALAArAC0AFAAsAC0AFAAtABYAAAABAAIAAAADAAEALgARAC8ALgATABEAMAAuAC8AMAAvADEAIAAwADEAIAAxACEAMgAgACEAMgAhAB8AMwAyAB8AMwAfADQAHgAzADQAHgA0ADUAEAAeADUAEAA1ABIABAAFAAYABAAHAAUANgAPADcANgANAA8AOAA2ADcAOAA3ADkAOgALADsAOgAJAAsAPAA6ADsAPAA7AD0AGQA8AD0AGQA9AD4ACAA/AAoACABAAD8AQQBCAEMAQQBEAEIARQBGAEcARQAYAEYASABJAEoASABLAEkADAAaAA4ADABMABoATQBOAE8ATQBQAE4AGwBRAFIAGwBTAFEAHQBUAFUAHQBWAFQAVwBYABwAVwBZAFgA"),
+"lods": [0.00397695, PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAYAAoAGAALAAoAGAAZAAsAGQAJAAsADAAaAA4ADAAbABoAGwAcABoAGwAdABwAHQANABwADQAPABwAEAAeABIAHgAfABIAHgAgAB8AIAAhAB8AIAARACEAIAATABEAFAAVABYAFAAiABUAIgAjABUAIwAXABUA"), 0.00918437, PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACQALAAoADAANAA4ADQAPAA4AEAARABIAEAATABEAFAAVABYAFAAXABUA")],
+"material": SubResource("StandardMaterial3D_xfrv8"),
+"name": "ice3",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 90,
+"vertex_data": PackedByteArray("AAAAAAAAAAD/////AAAAAAAA//8AAAAA//8AAAAAAAD//wAA//8AgAAA/////wCA////////AIAAAAAA//8AgP////8AAP+//////////78AAP//AAD/vwAA//////+/AAAAAAAA/z8AAAAA////P///AAAAAP8///8AAP///z///wAAAAD/v/////////+//////wAA/7///wAA////vwAAAAD//wAAAAD//wAAAAAAAP////8AAAAAAAAAAAAA/////7Zt/7//////SJL/v///AACSJP8/AAAAACRJ/z///wAASJL/PwAAAAC2bf8///8AAJIk/7//////tm3/v///AABIkv+//////0iS/78AAAAAtm0AAAAAAAAkSQAAAAAAAJIkAAAAAP//kiQAAAAA//8kSQAAAAD//7ZtAAAAAAAASJIAAAAA//9IkgAAAAAAANq2AAAAAP//2rYAAAAAAABs2wAAAAD//2zbAAD//wAAbNv/v/////9s2/+///8AANq2/7//////2rb/v///AAC2bf+///8AACRJ/7//////JEn/v/////+SJP+/AAAAAGzb/z///wAAbNv/PwAAAADatv8///8AANq2/z//////bNv/vwAA//9s2/+//////9q2/78AAP//2rb/vwAA//9Ikv+/AAD//5Ik/7//////kiT/v/////+SJP+/AAD//yRJ/78AAP//kiT/v/////8kSf+//////yRJ/78AAP//tm3/vwAA//8kSf+//////7Zt/78AAP//SJL/vwAA//+2bf+//////0iS/78AAAAAkiT/PwAAAACSJP8///8AACRJ/z///wAAkiT/PwAAAAAkSf8///8AALZt/z///wAAJEn/PwAAAAC2bf8///8AAEiS/z///wAAtm3/PwAAAABIkv8/AAAAAEiS/z///wAA2rb/PwAAAADatv8/////f////3////9/////f/9/////f////3////9///////9/////f////3////9/AAD/fwAA/38AAP9/AAD/f/9/AAD/fwAA/38AAP9/AAD/P/9//z//f/8//3//P/9//v//f////38AAP9/AAD/fwAA/38AAP9//38AAP9/AAD/fwAA/38AAP8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAAAAD/fwAA/38AAP9/AAD/f////3////9/////f////3/+//9/////f////3////9/////f////3/+//9/////f/7//3/+//9//v//f////3/+//9//v//fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_g8cd7")
 
 [node name="MeshInstance3D" type="MeshInstance3D"]
 transform = Transform3D(1.33592, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -13,5 +66,8 @@ transform = Transform3D(1.33592, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 transform = Transform3D(41.6302, 0, 0, 0, 1, 0, 0, 0, 480.023, 0, 0, 80.0101)
 shape = SubResource("BoxShape3D_iwg0i")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
-mesh = SubResource("BoxMesh_23i6h")
+[node name="Cube" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
+transform = Transform3D(0.0179809, 0, 0, 0, 1, 0, 0, 0, 0.00208323, 0.0128996, -0.584711, -0.00119607)
+gi_mode = 0
+mesh = SubResource("ArrayMesh_suxcq")
+skeleton = NodePath("")
