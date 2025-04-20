@@ -15,13 +15,13 @@ script = ExtResource("1_0d5ky")
 
 [node name="Play" type="Button" parent="."]
 layout_mode = 2
-offset_left = 732.0
-offset_top = 411.0
-offset_right = 773.0
-offset_bottom = 457.0
+offset_left = 671.0
+offset_top = 378.0
+offset_right = 712.0
+offset_bottom = 424.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(9.2423, 2.04476)
+scale = Vector2(10.7594, 2.6204)
 theme = ExtResource("2_7htnq")
 text = "
 

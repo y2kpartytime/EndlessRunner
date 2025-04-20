@@ -14,4 +14,14 @@ func _on_resume_pressed() -> void:
 func _on_quit_pressed() -> void:
 	get_tree().quit()
 
-func
+
+func _on_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/Main_Scene.tscn")
+	Engine.time_scale = 1
+	pause.hide()
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+
+func _on_death_timer_timeout() -> void:
+	pause.show()

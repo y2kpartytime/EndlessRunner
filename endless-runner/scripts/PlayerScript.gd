@@ -1,8 +1,10 @@
-extends CharacterBody3D
+class_name PlayerScript extends CharacterBody3D
 
 @onready var audio_player: AudioStreamPlayer3D = $AudioStreamPlayer3D
 @export var engineSound: AudioEffect
 @onready var audio_player2: AudioStreamPlayer3D = $AudioStreamPlayer3D2
+@onready var audio_player3: AudioStreamPlayer3D = $AudioStreamPlayer3D3
+@onready var dead_label: Label = $"../ScoreUI/DeadLabel"
 
 @export var score = 0
 @onready var ship_effect: Node3D = $CollisionShape3D/Cube_001/shipEffect
@@ -52,10 +54,9 @@ var side_mult = .2
 
 @export var jump_tilt_angle: float = -20.0
 var current_pitch: float = 0.0
-
 var dead = false
 
-# Mouse settings
+
 func _input(event):
 	if event is InputEventMouseMotion and controlling:
 		relative = event.relative
@@ -73,19 +74,17 @@ func _ready():
 	camera.position.y = normal_camera_height
 	if !dead:
 		audio_player.play()
+		
+
 func _physics_process(delta: float) -> void:
-	
 	relative = Vector2.ZERO
 	velocity.y += gravity * delta
-	#rotate(Vector3.DOWN, deg_to_rad(relative.x * deg_to_rad(rot_speed*2) * delta)) #left/right rotation
-	#rotate(transform.basis.x,deg_to_rad(- relative.y * deg_to_rad(rot_speed*2) * delta)) #Up/Down rotation
 	var target_height = boost_camera_height if boostpad else normal_camera_height
 	camera.position.y = move_toward(camera.position.y, target_height, delta * 2.0)
 	var target_fov = boost_fov if boostpad else normal_fov
-	
 	var current_fov_speed = fov_change_speed * (1.0 if boostpad else 1.0)
 	camera.fov = lerp(camera.fov, target_fov, current_fov_speed * delta)
-	
+
 	if boostpad:
 		boost_timer -= delta
 		if boost_timer <= 0:
@@ -108,16 +107,9 @@ func _physics_process(delta: float) -> void:
 	current_tilt = lerp(current_tilt, tilt_amount, tilt_speed * delta)
 	ship_model.rotation.z = deg_to_rad(current_tilt)
 	ship_model.rotation.x = deg_to_rad(current_pitch)
-		#var movef = Input.get_axis("Forward", "Back")
-		#if abs(movef) > 0:     
-			#global_translate(global_transform.basis.z * speed * movef * mult * delta)
-		#var upanddown = Input.get_axis("ui_up", "ui_down")
-		#if abs(upanddown) > 0:     
-			#global_translate(- global_transform.basis.y * speed * upanddown * mult * delta)
 	move_and_slide()
 	if dead == false:
-		velocity.z = speed * mult  #//Turns into endless runner game//
-
+		velocity.z = speed * mult
 	else:
 		velocity.z = 0
 
@@ -131,6 +123,7 @@ func shield_activate():
 	ship_effect_shield_activated.visible = true
 	shield_timer.start(shieldDuration)
 	shielded = true
+	audio_player3.play()
 
 func _on_shield_timer_timeout() -> void:
 	ship_effect_shield_activated.visible = false
@@ -154,3 +147,4 @@ func explode():
 		ship_effect.visible = false
 		ship_effect_2.visible = false
 		audio_player2.play()
+		dead_label.show()

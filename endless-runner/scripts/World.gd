@@ -1,9 +1,10 @@
+class_name WorldScript
 extends Node
 
 @onready var pause_menu: Control = $Pause
 var paused = false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("Pause"):
 		pauseMenu()
 
