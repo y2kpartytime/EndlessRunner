@@ -20,3 +20,4 @@ func _on_boost_timeout() -> void:
 func _on_area_entered(area: Area3D) -> void:
 	if area.is_in_group("Obstacle"):
 		queue_free()
+		

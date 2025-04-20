@@ -66,7 +66,6 @@ directional_shadow_mode = 1
 
 [node name="city" parent="." instance=ExtResource("3_5vg4a")]
 transform = Transform3D(14.2362, 0, 0, 0, 47.5538, 0, 0, 0, 14.2362, 32.8412, 23.7172, 61.5971)
-visible = false
 
 [node name="PlatformSpawner" type="Node3D" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("4_xgr5y")
@@ -127,12 +126,21 @@ label_settings = SubResource("LabelSettings_eqadg")
 [node name="DeadLabel" type="Label" parent="ScoreUI"]
 visible = false
 top_level = true
-layout_mode = 0
-offset_left = 464.0
-offset_top = 299.0
-offset_right = 686.0
-offset_bottom = 365.0
-text = "You crashed!"
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -144.5
+offset_top = -50.5
+offset_right = 144.5
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "You crashed!
+[ESC] and Restart"
 label_settings = SubResource("LabelSettings_eqadg")
+horizontal_alignment = 1
 
 [connection signal="timeout" from="PlatformSpawner/Timer" to="PlatformSpawner" method="_on_timer_timeout"]

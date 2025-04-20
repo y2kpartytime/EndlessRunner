@@ -1,12 +1,16 @@
 class_name PlayerScript extends CharacterBody3D
 
+var default_text = "CURRENT SCORE: "
 @onready var audio_player: AudioStreamPlayer3D = $AudioStreamPlayer3D
 @export var engineSound: AudioEffect
 @onready var audio_player2: AudioStreamPlayer3D = $AudioStreamPlayer3D2
 @onready var audio_player3: AudioStreamPlayer3D = $AudioStreamPlayer3D3
 @onready var dead_label: Label = $"../ScoreUI/DeadLabel"
+@onready var score_ui: Control = $"../ScoreUI"
+@onready var label: Label = $"../ScoreUI/Label"
 
-@export var score = 0
+var count_score = true
+
 @onready var ship_effect: Node3D = $CollisionShape3D/Cube_001/shipEffect
 @onready var ship_effect_2: Node3D = $CollisionShape3D/Cube_001/shipEffect2
 
@@ -69,12 +73,13 @@ func _input(event):
 		controlling = ! controlling
 
 func _ready():
+	var score = 0
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera = $Camera3D
 	camera.position.y = normal_camera_height
 	if !dead:
 		audio_player.play()
-		
+
 
 func _physics_process(delta: float) -> void:
 	relative = Vector2.ZERO
@@ -91,11 +96,10 @@ func _physics_process(delta: float) -> void:
 			boostpad = false
 		else:
 			velocity -= transform.basis.z * side_speed * boost_force * delta
-	var _v = Vector3.ZERO
 
+	var _v = Vector3.ZERO
 	var mult = 2
 	var side_mult = 1.1
-
 	var turn = Input.get_axis("Left", "Right")   
 	var effective_speed = tilt_speed
 	if abs(turn) > 0.1:   
@@ -108,10 +112,22 @@ func _physics_process(delta: float) -> void:
 	ship_model.rotation.z = deg_to_rad(current_tilt)
 	ship_model.rotation.x = deg_to_rad(current_pitch)
 	move_and_slide()
+
 	if dead == false:
 		velocity.z = speed * mult
 	else:
 		velocity.z = 0
+
+	if Input.is_action_pressed("Pause") and dead == true:
+		get_tree().change_scene_to_file("res://scenes/Main_Scene.tscn")
+		Engine.time_scale = 1
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		var bus_idx = AudioServer.get_bus_index("Master")
+		AudioServer.set_bus_mute(bus_idx, false)
+		count_score = true
+		Global.current_score = 0
+
 
 func apply_boost(force: float, duration: float):
 	boostpad = true
@@ -133,7 +149,7 @@ func explode():
 	if shielded == true:
 		pass
 	else:
-		var dead = true
+		dead = true
 		speed = 0
 		side_speed = 0
 		tilt_amount = 0
@@ -148,3 +164,5 @@ func explode():
 		ship_effect_2.visible = false
 		audio_player2.play()
 		dead_label.show()
+		audio_player.stop()
+		count_score = false
