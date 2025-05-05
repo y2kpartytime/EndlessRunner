@@ -12,6 +12,8 @@ func _on_body_entered(body: Node3D) -> void:
 	if body.is_in_group("Player"):
 		if body.has_method("apply_boost"):
 			body.apply_boost(boost_force, boost_duration)
+			$AudioStreamPlayer3D.play()
+
 
 func _on_boost_timeout() -> void:
 	pass

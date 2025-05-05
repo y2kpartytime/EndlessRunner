@@ -86,11 +86,11 @@ obstacle_scene2 = ExtResource("11_g46mu")
 obstacle_scene3 = ExtResource("11_ekw6i")
 player = NodePath("../Player")
 spawn_distance = 350.0
-spawn_interval = 0.5
-boost_spawn_interval = 5.0
-spawn_interval_pillar2 = 2.0
-spawn_interval_pillar3 = 2.35
-shield_spawn = 11.0
+spawn_interval = 0.4
+boost_spawn_interval = 4.0
+spawn_interval_pillar2 = 1.9
+spawn_interval_pillar3 = 2.2
+shield_spawn = 8.0
 
 [node name="CitySpawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("12_c7dqp")]
 visible = false

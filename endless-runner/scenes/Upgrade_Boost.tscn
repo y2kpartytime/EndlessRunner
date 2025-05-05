@@ -1,27 +1,26 @@
 [gd_scene load_steps=5 format=3 uid="uid://ckq2fmqkml0ou"]
 
 [ext_resource type="Script" uid="uid://brul061r1a248" path="res://scripts/booster_pad.gd" id="1_hnf4g"]
+[ext_resource type="AudioStream" uid="uid://c4vg38df3er4h" path="res://fbx-glb/boostSound.wav" id="2_134cp"]
+[ext_resource type="PackedScene" uid="uid://cxao0kyibxfrb" path="res://scenes/Upgrade_AntiMatter.tscn" id="3_hxcrr"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_8xfal"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hnf4g"]
-albedo_color = Color(1, 0.65, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_n25d2"]
-material = SubResource("StandardMaterial3D_hnf4g")
+[sub_resource type="SphereShape3D" id="SphereShape3D_0561s"]
+radius = 3.21169
 
 [node name="Area3D" type="Area3D" groups=["Powerup"]]
 script = ExtResource("1_hnf4g")
 boost_force = 100.0
 boost_duration = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(9.05186, 0, 0, 0, 1.45202, 0, 0, 0, 26.3773, 0, 0.0223799, 0)
-shape = SubResource("BoxShape3D_8xfal")
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_134cp")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
-mesh = SubResource("BoxMesh_n25d2")
-skeleton = NodePath("")
+[node name="Node3D" parent="." instance=ExtResource("3_hxcrr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.09555, 0)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.09555, 0)
+shape = SubResource("SphereShape3D_0561s")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

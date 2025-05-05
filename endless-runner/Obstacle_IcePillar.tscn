@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=4 uid="uid://bk8jcyn0p3n41"]
+[gd_scene load_steps=10 format=4 uid="uid://bk8jcyn0p3n41"]
 
 [ext_resource type="Script" uid="uid://47hmho4uwnjf" path="res://scripts/HitObstacle.gd" id="1_0fx8w"]
 [ext_resource type="Texture2D" uid="uid://cxeqsht65tjnn" path="res://fbx-glb/icepillar1_AdobeStock_623065595.jpg" id="1_iq60o"]
+[ext_resource type="AudioStream" uid="uid://cprqfrdg0aovr" path="res://fast-whoosh-118248.mp3" id="3_5fehm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0fx8w"]
 cull_mode = 1
@@ -55,6 +56,9 @@ shadow_mesh = SubResource("ArrayMesh_frj1e")
 [sub_resource type="BoxShape3D" id="BoxShape3D_iq60o"]
 size = Vector3(7.2372, 34.4609, 8.86811)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_5fehm"]
+radius = 141.743
+
 [node name="icepillar1" type="Area3D" groups=["Obstacle"]]
 script = ExtResource("1_0fx8w")
 
@@ -67,4 +71,16 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, -1.86265e-09, 0, 1, 0, 1.86265e-09, 0, 1, -0.439562, 10.4072, 0.266372)
 shape = SubResource("BoxShape3D_iq60o")
 
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_5fehm")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_5fehm")
+volume_db = 5.0
+max_db = 5.264
+pitch_scale = 1.18
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

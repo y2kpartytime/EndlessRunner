@@ -5,6 +5,8 @@ var default_text = "CURRENT SCORE: "
 @export var engineSound: AudioEffect
 @onready var audio_player2: AudioStreamPlayer3D = $AudioStreamPlayer3D2
 @onready var audio_player3: AudioStreamPlayer3D = $AudioStreamPlayer3D3
+@onready var audio_stream_player_4: AudioStreamPlayer3D = $AudioStreamPlayer3D4
+
 @onready var dead_label: Label = $"../ScoreUI/DeadLabel"
 @onready var score_ui: Control = $"../ScoreUI"
 @onready var label: Label = $"../ScoreUI/Label"
@@ -79,6 +81,8 @@ func _ready():
 	camera.position.y = normal_camera_height
 	if !dead:
 		audio_player.play()
+	if boostpad == true:
+		audio_stream_player_4.play()
 
 
 func _physics_process(delta: float) -> void:
@@ -89,7 +93,7 @@ func _physics_process(delta: float) -> void:
 	var target_fov = boost_fov if boostpad else normal_fov
 	var current_fov_speed = fov_change_speed * (1.0 if boostpad else 1.0)
 	camera.fov = lerp(camera.fov, target_fov, current_fov_speed * delta)
-
+	
 	if boostpad:
 		boost_timer -= delta
 		if boost_timer <= 0:
@@ -133,6 +137,7 @@ func apply_boost(force: float, duration: float):
 	boostpad = true
 	boost_timer = duration
 	boost_force = force
+	audio_stream_player_4.play()
 
 func shield_activate():
 	var shieldDuration = 4.0
@@ -144,6 +149,8 @@ func shield_activate():
 func _on_shield_timer_timeout() -> void:
 	ship_effect_shield_activated.visible = false
 	shielded = false
+
+
 
 func explode():
 	if shielded == true:
@@ -166,3 +173,4 @@ func explode():
 		dead_label.show()
 		audio_player.stop()
 		count_score = false
+		$AudioStreamPlayer3D5.stop()
